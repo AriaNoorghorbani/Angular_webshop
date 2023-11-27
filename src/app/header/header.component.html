@@ -1,0 +1,18 @@
+<mat-toolbar class="mx-auto justify-between">
+  <a routerLink="['home']" routerLinkActive="router-link-active">Aria Store</a>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon [matBadge]="1" matBadgeColor="warn">shopping_cart</mat-icon>
+  </button>
+  <mat-menu #menu>
+    <div class="p-3 divide-y divide-solid">
+      <div class="p-3 flex justify-between">
+        <span class="mr-16">1 item</span>
+        <a href="">View Cart</a>
+      </div>
+      <div class="p-3 flex justify-between font-light mb-2">
+        Keybord x 1
+        <span class="font-bold">{{ 150 | currency }}</span>
+      </div>
+    </div>
+  </mat-menu>
+</mat-toolbar>
