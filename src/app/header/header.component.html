@@ -1,5 +1,5 @@
 <mat-toolbar class="mx-auto justify-between">
-  <a routerLink="['home']" routerLinkActive="router-link-active">Aria Store</a>
+  <a routerLink="home">Aria Store</a>
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon [matBadge]="1" matBadgeColor="warn">shopping_cart</mat-icon>
   </button>
@@ -33,7 +33,6 @@
         </button>
         <button
           routerLink="cart"
-          routerLinkActive="router-link-active"
           class="bg-green-700 text-white w-9 h-9 rounded-full"
         >
           <mat-icon>remove_shopping_cart</mat-icon>
