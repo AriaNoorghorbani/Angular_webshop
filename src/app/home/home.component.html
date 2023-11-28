@@ -1,8 +1,11 @@
 <mat-drawer-container [autosize]="true" class="min-h-full border-x">
-  <mat-drawer class="p-6" mode="side" opened> Filters</mat-drawer>
+  <mat-drawer class="p-6" mode="side" opened>
+    <app-filters (selectCategory)="onSelectCategory($event)"></app-filters>
+  </mat-drawer>
   <mat-drawer-content class="p-6">
     <app-products-header
       (columnCountChanged)="onChangeColumn($event)"
     ></app-products-header>
+    <app-list [cols]="columnNumber"></app-list>
   </mat-drawer-content>
 </mat-drawer-container>

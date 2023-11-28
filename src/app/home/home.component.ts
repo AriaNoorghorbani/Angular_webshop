@@ -7,8 +7,14 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   columnNumber = 3;
+  selectedCategory: string | undefined;
+
   onChangeColumn(colNum: number) {
-    alert(colNum);
     this.columnNumber = colNum;
+  }
+
+  onSelectCategory(category: string): void {
+    this.selectedCategory = category;
+    debugger;
   }
 }
