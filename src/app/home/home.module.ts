@@ -9,7 +9,13 @@ import { ListComponent } from './list/list.component';
 import { ProductBoxComponent } from './product-box/product-box.component';
 
 @NgModule({
-  declarations: [HomeComponent, ProductsHeaderComponent, FiltersComponent, ListComponent, ProductBoxComponent],
+  declarations: [
+    HomeComponent,
+    ProductsHeaderComponent,
+    FiltersComponent,
+    ListComponent,
+    ProductBoxComponent,
+  ],
   imports: [CommonModule, SharedModule],
   exports: [],
 })

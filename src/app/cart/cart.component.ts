@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cart } from '../models/cart.model';
+import { Cart, CartItem } from '../models/cart.model';
 
 @Component({
   selector: 'app-cart',
@@ -16,10 +16,37 @@ export class CartComponent implements OnInit {
         quantity: 2,
         id: 1,
       },
+      {
+        image: 'https://via.placeholder.com/150',
+        name: 'snickers',
+        price: 250,
+        quantity: 3,
+        id: 2,
+      },
     ],
   };
 
-  dataSource: Array<Cart> = [];
+  dataSource: Array<CartItem> = [];
+  displayedColumns: Array<string> = [
+    'image',
+    'name',
+    'price',
+    'quantity',
+    'total',
+    'action',
+  ];
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.dataSource = this.cart.items;
+  }
+
+  // getTotalProduct(items: CartItem): number {
+  //   return items.price * items.quantity
+  // }
+
+  getTotal(items: Array<CartItem>): number {
+    return items
+      .map((items) => items.price * items.quantity)
+      .reduce((prev, current) => prev + current, 0);
+  }
 }

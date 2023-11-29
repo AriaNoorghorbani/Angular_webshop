@@ -12,6 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [],
@@ -29,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatSidenavModule,
     MatCardModule,
     MatButtonModule,
+    RouterModule,
   ],
   exports: [
     MatMenuModule,
@@ -43,6 +45,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatSidenavModule,
     MatCardModule,
     MatButtonModule,
+    RouterModule,
   ],
 })
 export class SharedModule {}
