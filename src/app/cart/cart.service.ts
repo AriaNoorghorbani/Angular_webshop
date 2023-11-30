@@ -33,4 +33,15 @@ export class CartService {
       .map((item) => item.quantity)
       .reduce((prev, current) => prev + current, 0);
   }
+
+  clearCart() {
+    this.cart.next({ items: [] });
+    this.snackBar.open('Cart is cleared', 'Ok', { duration: 3000 });
+  }
+
+  totalPriceCart(): number {
+    return this.cart.value.items
+      .map((items) => items.price * items.quantity)
+      .reduce((prev, current) => prev + current, 0);
+  }
 }
