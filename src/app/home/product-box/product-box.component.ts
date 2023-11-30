@@ -11,16 +11,12 @@ export class ProductBoxComponent {
   @Input() fullWidthMode = false;
   @Output() addToCart = new EventEmitter();
 
-  product: Product | undefined = {
-    id: 1,
-    title: 'Snickers',
-    price: 150,
-    category: 'Shoes',
-    description: 'A nice shoes',
-    image: 'https://via.placeholder.com/150',
-  };
+  @Input() product: Product | undefined;
+  @Input() index!: number;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService) {
+    console.log(this.product);
+  }
 
   onAddToCart() {
     this.cartService.addToCart({

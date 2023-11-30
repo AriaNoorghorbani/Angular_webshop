@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { ApiService } from 'src/app/cart/api.service';
+import { Product } from 'src/app/models/product.model';
 
 const ROW_HEIGHT: { [id: number]: string } = {
   1: '400px',
@@ -11,10 +14,32 @@ const ROW_HEIGHT: { [id: number]: string } = {
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent {
+export class ListComponent implements OnInit, OnDestroy {
   @Input() cols = 3;
+  sort = 'desc';
+  count = '12';
+  productSubscription: Subscription | undefined;
+
+  products: Array<Product> | undefined;
+  constructor(private api: ApiService) {}
+
+  ngOnInit(): void {
+    this.getProducts();
+  }
 
   get rowHeight(): string {
     return ROW_HEIGHT[this.cols];
+  }
+
+  getProducts() {
+    this.productSubscription = this.api
+      .getAllProduct(this.sort, this.count)
+      .subscribe((products) => (this.products = products));
+  }
+
+  ngOnDestroy(): void {
+    if (this.productSubscription) {
+      this.productSubscription.unsubscribe();
+    }
   }
 }
