@@ -10,7 +10,6 @@ import { Product } from 'src/app/models/product.model';
 export class ProductBoxComponent {
   @Input() fullWidthMode = false;
   @Output() addToCart = new EventEmitter();
-
   @Input() product: Product | undefined;
   @Input() index!: number;
 

@@ -8,12 +8,13 @@ import { ApiService } from 'src/app/cart/api.service';
 })
 export class ProductsHeaderComponent {
   @Output() columnCountChanged = new EventEmitter<number>();
-
   sort = 'desc';
   count = '12';
 
+  constructor(private api: ApiService) {}
+
   onSortUpdated(newSort: string): void {
-    this.sort = newSort;
+    this.api.updateSort(newSort);
   }
 
   onCountMenu(newCount: string): void {

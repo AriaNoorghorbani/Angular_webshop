@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/cart/api.service';
 import { Product } from 'src/app/models/product.model';
 
@@ -16,8 +16,9 @@ const ROW_HEIGHT: { [id: number]: string } = {
 })
 export class ListComponent implements OnInit, OnDestroy {
   @Input() cols = 3;
-  sort = 'desc';
+  sort: any;
   count = '12';
+  category = '';
   productSubscription: Subscription | undefined;
 
   products: Array<Product> | undefined;
@@ -32,9 +33,17 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   getProducts() {
+    this.api.sort.subscribe((newSort) => {
+      this.sort = newSort;
+      console.log(newSort);
+    });
     this.productSubscription = this.api
-      .getAllProduct(this.sort, this.count)
+      .getAllProduct(this.sort, this.count, this.category)
       .subscribe((products) => (this.products = products));
+  }
+
+  updateSort() {
+    this.api.getAllProduct(this.count, this.sort, this.category);
   }
 
   ngOnDestroy(): void {

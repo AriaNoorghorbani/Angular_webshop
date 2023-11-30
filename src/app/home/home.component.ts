@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   columnNumber = 3;
+  currentSort = 'desc';
   selectedCategory: string | undefined;
 
   onChangeColumn(colNum: number) {
@@ -15,6 +16,5 @@ export class HomeComponent {
 
   onSelectCategory(category: string): void {
     this.selectedCategory = category;
-    debugger;
   }
 }

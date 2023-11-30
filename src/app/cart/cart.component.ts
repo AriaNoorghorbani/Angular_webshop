@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { loadStripe } from '@stripe/stripe-js';
 import { Cart, CartItem } from '../models/cart.model';
 import { CartService } from './cart.service';
 
@@ -10,7 +12,7 @@ import { CartService } from './cart.service';
 export class CartComponent implements OnInit {
   cart: Cart = { items: [] };
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private http: HttpClient) {}
 
   dataSource: Array<CartItem> = [];
   displayedColumns: Array<string> = [
@@ -48,5 +50,20 @@ export class CartComponent implements OnInit {
   }
   onDecreaseQuantity(element: CartItem) {
     this.cartService.decreaseQuantity(element);
+  }
+
+  onCheckout() {
+    this.http
+      .post('http://localhost:4242/checkout', {
+        items: this.cart.items,
+      })
+      .subscribe(async (res: any) => {
+        let stripe = await loadStripe(
+          'pk_test_51OGkjXK9ITI0FVLUfEp6zOgeUdVKRDFc4JBvkHKx9DW6ZiLLrNpNv7YcyZLSYsdIpE95O5gnReEMXkHicRfrYk8d00xXdV6YVs'
+        );
+        stripe?.redirectToCheckout({
+          sessionId: res.id,
+        });
+      });
   }
 }
