@@ -14,9 +14,7 @@ export class ProductBoxComponent {
   @Input() product: Product | undefined;
   @Input() index!: number;
 
-  constructor(private cartService: CartService) {
-    console.log(this.product);
-  }
+  constructor(private cartService: CartService) {}
 
   onAddToCart() {
     this.cartService.addToCart({

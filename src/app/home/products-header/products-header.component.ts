@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { ApiService } from 'src/app/cart/api.service';
 
 @Component({
   selector: 'app-products-header',
@@ -9,13 +10,13 @@ export class ProductsHeaderComponent {
   @Output() columnCountChanged = new EventEmitter<number>();
 
   sort = 'desc';
-  count = 12;
+  count = '12';
 
   onSortUpdated(newSort: string): void {
     this.sort = newSort;
   }
 
-  onCountMenu(newCount: number): void {
+  onCountMenu(newCount: string): void {
     this.count = newCount;
   }
 

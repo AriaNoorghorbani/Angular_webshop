@@ -14,12 +14,14 @@
       [ngClass]="{ 'px-8 flex flex-col justify-between': fullWidthMode }"
     >
       <div>
-        <h5>{{ product.title }}</h5>
-        <div class="truncate hover:whitespace-normal">Snickers</div>
+        <h4 class="mb-2">{{ product.category }}</h4>
+        <div class="truncate hover:whitespace-normal mb-3">
+          {{ product.title }}
+        </div>
         <div *ngIf="fullWidthMode">{{ product.description }}</div>
       </div>
       <div class="flex justify-between">
-        <span class="text-red-500">{{ 150 | currency }}</span>
+        <span class="text-red-500">{{ product.price | currency }}</span>
         <button (click)="onAddToCart()">
           <mat-icon class="text-gray-700">shopping_cart</mat-icon>
         </button>
