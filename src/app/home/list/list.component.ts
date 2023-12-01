@@ -16,7 +16,6 @@ const ROW_HEIGHT: { [id: number]: string } = {
 })
 export class ListComponent implements OnInit, OnDestroy {
   @Input() cols = 3;
-  sort: any;
   count = '12';
   category = '';
   productSubscription: Subscription | undefined;
@@ -33,17 +32,9 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   getProducts() {
-    this.api.sort.subscribe((newSort) => {
-      this.sort = newSort;
-      console.log(newSort);
-    });
     this.productSubscription = this.api
-      .getAllProduct(this.sort, this.count, this.category)
+      .getAllProduct(this.count, this.category)
       .subscribe((products) => (this.products = products));
-  }
-
-  updateSort() {
-    this.api.getAllProduct(this.count, this.sort, this.category);
   }
 
   ngOnDestroy(): void {

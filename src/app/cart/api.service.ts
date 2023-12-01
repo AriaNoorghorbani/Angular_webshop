@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Product } from '../models/product.model';
 
 @Injectable({
@@ -8,19 +9,19 @@ import { Product } from '../models/product.model';
 })
 export class ApiService {
   BASE_URL = 'https://fakestoreapi.com';
-  sort = new BehaviorSubject<string>('desc');
+  private sort = new BehaviorSubject<string>('desc');
 
   constructor(private http: HttpClient) {}
 
-  getAllProduct(
-    limit: string,
-    sort: string,
-    category?: string
-  ): Observable<Array<Product>> {
-    return this.http.get<Array<Product>>(
-      `${this.BASE_URL}/products${
-        category ? '/category/' + category : ''
-      }?limit=${limit}&sort=${sort}`
+  getAllProduct(limit: string, category?: string): Observable<Array<Product>> {
+    return this.sort.pipe(
+      switchMap((sort) =>
+        this.http.get<Array<Product>>(
+          `${this.BASE_URL}/products${
+            category ? '/category/' + category : ''
+          }?limit=${limit}&sort=${sort}`
+        )
+      )
     );
   }
 
