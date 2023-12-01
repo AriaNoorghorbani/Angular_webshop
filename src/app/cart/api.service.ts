@@ -9,17 +9,20 @@ import { Product } from '../models/product.model';
 })
 export class ApiService {
   BASE_URL = 'https://fakestoreapi.com';
-  private sort = new BehaviorSubject<string>('desc');
+  private sort = new BehaviorSubject<{ alphabet: string; limit: string }>({
+    alphabet: 'desc',
+    limit: '12',
+  });
 
   constructor(private http: HttpClient) {}
 
-  getAllProduct(limit: string, category?: string): Observable<Array<Product>> {
+  getAllProduct(category?: string): Observable<Array<Product>> {
     return this.sort.pipe(
-      switchMap((sort) =>
+      switchMap(({ alphabet, limit }) =>
         this.http.get<Array<Product>>(
           `${this.BASE_URL}/products${
             category ? '/category/' + category : ''
-          }?limit=${limit}&sort=${sort}`
+          }?limit=${limit}&sort=${alphabet}`
         )
       )
     );
@@ -29,7 +32,7 @@ export class ApiService {
     return this.http.get<Array<string>>(`${this.BASE_URL}/products/categories`);
   }
 
-  updateSort(newSort: string) {
-    this.sort.next(newSort);
+  updateSort(newSort: string, newLimit: string) {
+    this.sort.next({ alphabet: newSort, limit: newLimit });
   }
 }

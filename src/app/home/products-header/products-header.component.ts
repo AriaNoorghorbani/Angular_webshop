@@ -8,17 +8,19 @@ import { ApiService } from 'src/app/cart/api.service';
 })
 export class ProductsHeaderComponent {
   @Output() columnCountChanged = new EventEmitter<number>();
-  sort = 'desc';
-  count = '12';
+  alphabet = 'desc';
+  limit = '12';
 
   constructor(private api: ApiService) {}
 
-  onSortUpdated(newSort: string): void {
-    this.api.updateSort(newSort);
+  onSortUpdated(newAlphabet: string): void {
+    this.alphabet = newAlphabet;
+    this.api.updateSort(newAlphabet, this.limit);
   }
 
-  onCountMenu(newCount: string): void {
-    this.count = newCount;
+  onLimitUpdated(newLimit: string): void {
+    this.limit = newLimit;
+    this.api.updateSort(this.alphabet, newLimit);
   }
 
   onChangeColumn(colsNum: number): void {

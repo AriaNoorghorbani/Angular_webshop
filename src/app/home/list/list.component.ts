@@ -33,7 +33,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   getProducts() {
     this.productSubscription = this.api
-      .getAllProduct(this.count, this.category)
+      .getAllProduct(this.category)
       .subscribe((products) => (this.products = products));
   }
 
