@@ -24,12 +24,14 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.categoriesSubscription = this.api
       .getAllCategories()
       .subscribe((getCategories) => {
-        // Assuming getCategories is an array
         this.categories = ['All', ...getCategories];
       });
   }
 
   onSelectCategory(selectedCategory: string): void {
+    if (selectedCategory === 'All') {
+      selectedCategory = '';
+    }
     this.api.updateFilter(selectedCategory);
   }
 

@@ -9,8 +9,9 @@ import { Product } from '../models/product.model';
 })
 export class ApiService {
   BASE_URL = 'https://fakestoreapi.com';
+  selectedCategory: string = '';
 
-  private sort = new BehaviorSubject<{
+  sort = new BehaviorSubject<{
     alphabet?: string;
     limit?: string;
     category?: string;
@@ -38,10 +39,17 @@ export class ApiService {
   }
 
   updateSort(newSort: string, newLimit: string) {
-    this.sort.next({ alphabet: newSort, limit: newLimit });
+    this.sort.next({
+      alphabet: newSort,
+      limit: newLimit,
+      category: this.selectedCategory,
+    });
   }
 
   updateFilter(newFilter: string) {
-    this.sort.next({ category: newFilter });
+    if (newFilter !== 'All') {
+      this.sort.next({ category: newFilter });
+      this.selectedCategory = newFilter;
+    }
   }
 }

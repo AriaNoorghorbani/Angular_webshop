@@ -1,10 +1,11 @@
-<mat-expansion-panel *ngIf="categories">
+<mat-expansion-panel *ngIf="categories" expanded>
   <mat-expansion-panel-header> CATEGORIES </mat-expansion-panel-header>
-  <mat-selection-list [multiple]="false">
+  <mat-selection-list [multiple]="false" expanded="true">
     <mat-list-option
       *ngFor="let category of categories"
       (click)="onSelectCategory(category)"
       [value]="category"
+      [selected]="category === 'All'"
     >
       <button>{{ category }}</button>
     </mat-list-option>

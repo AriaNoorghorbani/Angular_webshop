@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from 'src/app/cart/api.service';
 
 @Component({
@@ -6,12 +6,20 @@ import { ApiService } from 'src/app/cart/api.service';
   templateUrl: './products-header.component.html',
   styleUrls: ['./products-header.component.scss'],
 })
-export class ProductsHeaderComponent {
+export class ProductsHeaderComponent implements OnInit {
   @Output() columnCountChanged = new EventEmitter<number>();
   alphabet = 'desc';
-  limit = '12';
+  limit: string = '';
 
   constructor(private api: ApiService) {}
+
+  ngOnInit(): void {
+    this.api.sort.subscribe((data) => {
+      if (data.limit) {
+        this.limit = data.limit;
+      }
+    });
+  }
 
   onSortUpdated(newAlphabet: string): void {
     this.alphabet = newAlphabet;
@@ -19,8 +27,10 @@ export class ProductsHeaderComponent {
   }
 
   onLimitUpdated(newLimit: string): void {
-    this.limit = newLimit;
-    this.api.updateSort(this.alphabet, newLimit);
+    if (this.limit !== newLimit) {
+      this.limit = newLimit;
+      this.api.updateSort(this.alphabet, newLimit);
+    }
   }
 
   onChangeColumn(colsNum: number): void {
